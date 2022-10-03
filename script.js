@@ -99,7 +99,7 @@ var answers = {
 
 //answer variables that will be attached to each question
 
-//timer
+//timer, stores score in local storage
 htmlTimeLeft.textContent = timeLeft;
 
 viewScoresBtn.addEventListener("click", function() {
@@ -123,11 +123,51 @@ viewScoresBtn.addEventListener("click", function() {
 
 });
 
-//timer score functions (add time for correct answers, remove time for incorrect answers)
+//submit scores at the end of the quiz, more local storage
+submitScoreEl.addEventListener("click", function() {
+    var quizLocalStorage = "quiz";
+    var quizUserDetails = "";
+    var value = [];
+    
+    //this is how the initials plus the high score will be listed in the array of high scores on the local storage
+    quizUserDetails = quizLocalStorage + enterInitialsTextArea.value 
+    value = [quizUserDetails,highScore] 
 
-//high score storage
+    //checking to see if the user already exists, or making a new user
+    if (!localStorage.length) {
+        localStorage.setItem("test","test");
+    }
+       
+    for (var i=0; i < localStorage.length; i++){
+        var checkUser = "";
+        var checkUserValue = [];
 
-//adding score to high score storage
+        quizUserDetails = quizLocalStorage + enterInitialsTextArea.value;
+
+        checkUser = localStorage.getItem(quizUserDetails);
+   
+        if (checkUser == null) { 
+            localStorage.setItem(quizUserDetails, value); 
+            window.alert("Your score of " + highScore + " has been submitted!")
+            break;
+        } else if (checkUser != null){
+            checkUserValue = checkUser.split(",");
+        }  
+       
+        if (quizUserDetails == checkUserValue[0] && highScore == checkUserValue[1] ) {
+            localStorage.setItem(quizUserDetails, value); // Value is equal to 
+            window.alert(highScore + " " + "is the latest entry for user initial " + enterInitialsTextArea.value + ". Entry will not be added.")
+        break; 
+        } else if (enterInitialsTextArea.value == "") {
+            window.alert("Please enter an initial");
+            break;
+        } else {
+            localStorage.setItem(quizUserDetails, value);
+            window.alert("Your score of " + highScore + " has been submitted!")
+            break;
+        }          
+    }  
+});
 
 //correct or incorrect answer
 
