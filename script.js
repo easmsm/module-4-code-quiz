@@ -100,6 +100,28 @@ var answers = {
 //answer variables that will be attached to each question
 
 //timer
+htmlTimeLeft.textContent = timeLeft;
+
+viewScoresBtn.addEventListener("click", function() {
+
+    var quizUsers = "";
+    var substringTest ="";
+    var highScores = "";
+
+    for (var i=0; i < localStorage.length; i++) {
+        var checkUserValue = [];
+        
+        quizUsers = localStorage.getItem(localStorage.key(i));
+        substringTest = quizUsers.substring(0,4) 
+        if (substringTest == "quiz") {
+            checkUserValue = quizUsers.split(",");
+            var userName = checkUserValue[0]
+            highScores += "User " + userName.substring(4) + " high score is: " + checkUserValue[1] + "\n";
+       }
+    }
+    window.alert(highScores);
+
+});
 
 //timer score functions (add time for correct answers, remove time for incorrect answers)
 
