@@ -92,11 +92,6 @@ var answers = {
 
 //end questions and answers section
 
-
-
-
-//button answer option displays
-
 //answer variables that will be attached to each question
 
 //timer, stores score in local storage
@@ -124,7 +119,7 @@ viewScoresBtn.addEventListener("click", function() {
 });
 
 //submit scores at the end of the quiz, more local storage
-submitScoreEl.addEventListener("click", function() {
+submitScore.addEventListener("click", function() {
     var quizLocalStorage = "quiz";
     var quizUserDetails = "";
     var value = [];
@@ -148,26 +143,49 @@ submitScoreEl.addEventListener("click", function() {
    
         if (checkUser == null) { 
             localStorage.setItem(quizUserDetails, value); 
-            window.alert("Your score of " + highScore + " has been submitted!")
-            break;
+            window.alert("That's a great score of" + highScore + ", we'll take that!")
         } else if (checkUser != null){
             checkUserValue = checkUser.split(",");
         }  
        
         if (quizUserDetails == checkUserValue[0] && highScore == checkUserValue[1] ) {
             localStorage.setItem(quizUserDetails, value); // Value is equal to 
-            window.alert(highScore + " " + "is the latest entry for user initial " + enterInitialsHere.value + ". Entry will not be added.")
-        break; 
+            window.alert(highScore + " " + "is the latest score from our return customer " + enterInitialsHere.value + ". Trying to prove something, now?")
         } else if (enterInitialsHere.value == "") {
-            window.alert("Please enter an initial");
-            break;
+            window.alert("We need your initials, love!");
         } else {
             localStorage.setItem(quizUserDetails, value);
-            window.alert("Your score of " + highScore + " has been submitted!")
-            break;
+            window.alert("We've got your score of " + highScore + " and we're keeping it!");
         }          
     }  
 });
 
-//correct or incorrect answer
+//button displays
 
+answerOption1Btn.addEventListener("mouseover", function() {
+
+    answerRightWrong.style.display='none';
+
+});
+
+answerOption2Btn.addEventListener("mouseover", function() {
+    answerRightWrong.style.display='none';
+});
+
+answerOption3Btn.addEventListener("mouseover", function() {
+    answerRightWrong.style.display='none';
+});
+
+answerOption4Btn.addEventListener("mouseover", function() {
+    answerRightWrong.style.display='none';
+});
+
+submitScore.addEventListener("mouseover", function() {
+
+    answerRightWrong.style.display='none';
+});
+
+startQuizBtn.addEventListener("click", function() {
+});
+
+//correct or incorrect answer
