@@ -1,10 +1,10 @@
 // variables 
 
 //variables for timer/score keeping
-var score = 0; // Max value by decreasing each wrong answer
+var score = 0; // Max value by decreasing each wrong answer 
 var highScore = 50; // highest possible score with the number of questions I'll be adding
 var checkTimes = 1 //  last question check
-var htmlTimeLeft = document.getElementById('timeLeft'); 
+var htmlTimeLeft = document.getElementById('timeLeft');
 var enterInitialsPrompt = document.createElement("enterInitialsPrompt"); 
 var enterInitialsHere = document.createElement("enterInitialsHere"); 
 
@@ -34,6 +34,16 @@ var questionHere = document.createElement("questionHere");
 var finalScore = document.createElement("finalScore"); 
 
 
+//------------------quiz-------------------------------
+
+//clear out old information "Reset", won't show answer options before questions are populated
+answerOption1Btn.style.display = 'none';
+answerOption2Btn.style.display = 'none';
+answerOption3Btn.style.display = 'none';
+answerOption4Btn.style.display = 'none';
+submitScore.style.display = 'none';
+answerRightWrong.style.display='none';
+enterInitialsHere.style.display='none';
 
 //questions
 
