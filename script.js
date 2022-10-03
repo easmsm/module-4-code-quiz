@@ -130,7 +130,7 @@ submitScoreEl.addEventListener("click", function() {
     var value = [];
     
     //this is how the initials plus the high score will be listed in the array of high scores on the local storage
-    quizUserDetails = quizLocalStorage + enterInitialsTextArea.value 
+    quizUserDetails = quizLocalStorage + enterInitialsHere.value 
     value = [quizUserDetails,highScore] 
 
     //checking to see if the user already exists, or making a new user
@@ -142,7 +142,7 @@ submitScoreEl.addEventListener("click", function() {
         var checkUser = "";
         var checkUserValue = [];
 
-        quizUserDetails = quizLocalStorage + enterInitialsTextArea.value;
+        quizUserDetails = quizLocalStorage + enterInitialsHere.value;
 
         checkUser = localStorage.getItem(quizUserDetails);
    
@@ -156,9 +156,9 @@ submitScoreEl.addEventListener("click", function() {
        
         if (quizUserDetails == checkUserValue[0] && highScore == checkUserValue[1] ) {
             localStorage.setItem(quizUserDetails, value); // Value is equal to 
-            window.alert(highScore + " " + "is the latest entry for user initial " + enterInitialsTextArea.value + ". Entry will not be added.")
+            window.alert(highScore + " " + "is the latest entry for user initial " + enterInitialsHere.value + ". Entry will not be added.")
         break; 
-        } else if (enterInitialsTextArea.value == "") {
+        } else if (enterInitialsHere.value == "") {
             window.alert("Please enter an initial");
             break;
         } else {
