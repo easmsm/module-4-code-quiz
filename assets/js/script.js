@@ -5,12 +5,42 @@
 // -----------------------------variables------------------------------------------------- 
 
 //this resolved a console error but then the questions disappeared. 
-var questions = import("./questions");
+//changed to require, didn't work, changed to const, didn't work
+// var questions = import("./questions");
+// import questions from "./questions"
 
+//moving questions from questions.js back here - that fixed the timer issue!
+var questions = [
+  {
+      title: "What number is used for the first position in an array",
+      choices: ["0", "1", "2", "None of these"],
+      answer: "0"
+  },
+  {
+      title: "Which of the following is not a programming language?",
+      choices: ["Java", "Jaba", "JavaScript", "Python"],
+      answer: "Jaba"
+  },
+  {
+      title: "Where do you link your JavaScript to your HTML file?",
+      choices: ["In the header", "In the footer", "At the bottom of the file, right before the close of the body tag", "At the top of the file, after the html language is designated"],
+      answer: "At the bottom of the file, right before the close of the body tag"
+  },
+  {
+      title: "Which of the following is an example of a string?",
+      choices: ["!Where's Waldo?", "Where's Waldo?", "'Where's Waldo?'", "How is Waldo?"],
+      answer: "'Where's Waldo?'"
+  },
+  {
+      title: "What are variables?",
+      choices: ["Placeholders for numbers", "Where deleted information is stored", "Text input spaces for end users","Where information is stored"],
+      answer: "Where information is stored"
+  }
+]
 
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
-// var timerId;
+var timerId;
 
 var timeEl = document.querySelector("#timer");
 var startBtn = document.querySelector("#startButton");
@@ -18,11 +48,10 @@ var submitBtn = document.querySelector("#submit-button");
 var titleScreen = document.querySelector("#title-section");
 var quizScreen = document.querySelector("#quiz-section");
 var highScoreScreen = document.querySelector("#highScore-section");
-var highScoreDisplay = document.querySelector("#highScore-display-section");
 var initialsEl = document.querySelector("#initials");
-var feedbackEl = document.querySelector("#feedback");
-
-var questionsEl = document.querySelector("#question");
+var rightWrong = document.querySelector("#feedback");
+//changed from questionsEl
+var currentQuestion = document.querySelector("#question-title");
 var choicesEl = document.querySelector("#choices");
 
 //------------------quiz-------------------------------
@@ -31,23 +60,22 @@ var choicesEl = document.querySelector("#choices");
 function startQuiz() {
     titleScreen.setAttribute("class", "hide");
     quizScreen.setAttribute("class", "show");
+    // currentQuestion.setAttribute("class", "show");
   
     // timer
      // start timer
      timerId = setInterval(startTime, 1000);
   
-     // show starting time
      timeEl.textContent = time;
    
      getQuestion();
   }
+  // something isn't working here --
 
   function startTime() {
-    time--;
+    // time--;
     timeEl.textContent = time;
-  
-    // check if user ran out of time
-    if (time <= 0) {
+      if (time <= 0) {
       quizEnd();
     }
   }
@@ -80,14 +108,13 @@ function startQuiz() {
         time = 0;
       }
       timeEl.textContent = time;
-      feedbackEl.textContent = "Wrong!";
+      rightWrong.textContent = "Wrong!";
     } else {
-
-      feedbackEl.textContent = "Correct!";
+      rightWrong.textContent = "Correct!";
     }
-      feedbackEl.setAttribute("class", "feedback");
-    setTimeout(function() {
-      feedbackEl.setAttribute("class", "feedback hide");
+      rightWrong.setAttribute("class", "feedback");
+      setTimeout(function() {
+      rightWrong.setAttribute("class", "feedback hide");
     }, 1000);
       currentQuestionIndex++;
       if (currentQuestionIndex === questions.length) {
@@ -96,7 +123,6 @@ function startQuiz() {
       getQuestion();
     }
   }
-
 
 // end the quiz 
   function quizEnd() {
@@ -127,12 +153,12 @@ function saveHighScore() {
   
       highScores.push(newScore);
       window.localStorage.setItem("highScores", JSON.stringify(highScores));
-  
+      
+      //this works!
       window.location.href = "highscores.html";
           // function toHighScores() {
           //     window.location.assign("./highscores.html")
           // }
-
     }
   }
 
