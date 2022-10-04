@@ -4,51 +4,79 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- link to the CSS stylesheet -->
-    <link rel="stylesheet" href="./assets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Coding Quiz</title>
 </head>
 <body>
-    <header>
+    <div class ="container">
+        <header>
         <!-- Stores link to alert for the high scores and the count down/time tracker -->
-        <div>
-            <button id="viewScores">High Scores</button>
+        <div class="col-md-6" id="highScore">
+        <!-- broke out the scores to a separate html file, linked here-->
+            <a href="./highscores.html">High Scores</a>
         </div>
-        <div>
-            <p>Clock: <span>xxx</span></p>
+        <div class="col-md" id="timer">
+            <p>Race the Clock: <span id="time"></span></p>
         </div>
+    </div>
     </header>
 
-    <div id="main">
-        <!-- Stores the paragraphs for the questions and the buttons to select the answers -->
-        <div id="gridContainer">
-            <p id="questionHere">Challenge Yourself with a Code Quiz!</p>
-                <!-- final score here -->
-                <p id="finalScore"></p>
-                <!--cue to enter initials (instructions) here-->
-                <p id="enterInitialsPrompt"></p>
-                <!-- enter initials to keep track of scores here -->
-                <textarea id="enterInitialsHere"></textarea>
-                <!-- answer options as buttons-->
-                <button class="btn" id="startQuiz">Start</button>
-                <button class="btn" id="answeroption1"></button>
-                <button class="btn" id="answeroption2"></button>
-                <button class="btn" id="answeroption3"></button>
-                <button class="btn" id="answeroption4"></button>
-                <!--submit score button-->
-                <button class="btn" id="submitScore"></button> 
-
+    <!--Title Page/Instructions Sections-->
+    <section id="title-section" class="show">
+        <div class="d-flex flex-row">
+            <div class="d-flex p-2">
+                <h1>Challenge Yourself with a Coding Quiz</h1>
             </div>
-            <!--wrong/right answers answers-->
-            <div id="answerRightWrongGrid"></div>
-            <p id=answerRightWrong></p>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="d-flex p-2">
+                <p>Answer the following questions about coding - for each question that is answered incorrectly, your time will be penalized. Careful now!</p>
             </div>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="d-flex p-2">
+                <button type="button" class="btn btn-primary btn-sm" id="startButton">Start Quiz</button>
             </div>
-    </div>
+        </div>
+    </section>
+
+    <!-- Append questions here, adding all as children instead of adding textContent to buttons, which I couldn't get to work-->
+    <section id="quiz-section" class="hide">
+        <div class="d-flex flex-row">
+            <div class="d-flex p-2">
+                <h3 id="question-title"></h3>
+            </div>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="d-flex p-2" id="choices"></div>
+            <div id="feedback" class="feedback hide"></div>
+        </div>
+    </section>
+
+     <!-- High Score feed from linked html file -->
+     <section id="highScore-section" class="hide">
+        <div class="d-flex flex-column">
+            <div id="high-score" class="d-flex p-2">
+                <h2>You Made It!</h2>
+                
+                <h3>Your final score is <span id="final-score">0</span></h3>
+                
+
+                <label for="initials-area">Enter initials:</label>
+                <input type="text" name="initials-area" maxlength="4" id="initials">
+                <!-- this is saving the initials, but not redirecting anywhere - the function for keeping time is not working either -->
+                <button type="button" class="btn btn-primary btn-sm" id="submit-button" type="submit">Submit</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- link to the Javascript files (added additional as I am now breaking the js up into different tasks) -->
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/questions.js"></script>
+    <script src="./assets/js/scores.js"></script>
 
 
-    <!-- link to the Javascript file -->
-    <script src="script.js"></script>
 
 </body>
 </html>
