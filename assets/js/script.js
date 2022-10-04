@@ -1,7 +1,10 @@
 //note: I know this is more cluttered than it should be, but I realized I was making things too complicated and basically started over
 //I'm keeping some of the old logic to come back and look at at a later time, for another use case
+//This is where the problems live - questions aren't showing, timer still isn't working
 
 // -----------------------------variables------------------------------------------------- 
+
+//this resolved a console error but then the questions disappeared. 
 var questions = import("./questions");
 
 
