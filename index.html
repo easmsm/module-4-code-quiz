@@ -42,14 +42,16 @@
     </section>
 
     <!-- Append questions here, adding all as children instead of adding textContent to buttons, which I couldn't get to work-->
-    <section id="quiz-section" class="hide">
-        <div class="d-flex flex-row">
+    <!-- <section id="quiz-section" class="hide"> -->
+    <section id="quiz-section">
+        <div class="d-flex flex-column">
             <div class="d-flex p-2">
+                <!-- should be attaching children to the id question-title, which I've renamed currentQuestion in index.js-->
                 <h3 id="question-title"></h3>
             </div>
         </div>
-        <div class="d-flex flex-row">
-            <div class="d-flex p-2" id="choices"></div>
+        <div class="d-flex flex-column">
+            <div class="justify-content d-flex p-2" id="choices"></div>
             <div id="feedback" class="feedback hide"></div>
         </div>
     </section>
@@ -65,7 +67,6 @@
 
                 <label for="initials-area">Enter initials:</label>
                 <input type="text" name="initials-area" maxlength="4" id="initials">
-                <!-- this is saving the initials, but not redirecting anywhere - the function for keeping time is not working either -->
                 <button type="button" class="btn btn-primary btn-sm" id="submit-button" type="submit">Submit</button>
             </div>
         </div>

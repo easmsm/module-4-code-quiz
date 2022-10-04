@@ -60,7 +60,7 @@ var choicesEl = document.querySelector("#choices");
 function startQuiz() {
     titleScreen.setAttribute("class", "hide");
     quizScreen.setAttribute("class", "show");
-    // currentQuestion.setAttribute("class", "show");
+    currentQuestion.setAttribute("class", "show");
   
     // timer
      // start timer
@@ -70,6 +70,8 @@ function startQuiz() {
    
      getQuestion();
   }
+
+  
   // something isn't working here --
 
   function startTime() {
@@ -83,7 +85,21 @@ function startQuiz() {
   function getQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
   
+    // var displayQuestions = function () {
+    //   initializeElements();
+    //   questionEl.textContent = quiz[questionIncrementer].question;
+    //   for (i = 0; i < quiz[questionIncrementer].choices.length; i++) {
+    //     var listChoiceEl = document.createElement("li");
+    //     listChoiceEl.textContent = quiz[questionIncrementer].choices[i];
+    //     listChoiceEl.className = "btn";
+    //     choicesEl.appendChild(listChoiceEl);
+    //   }
+    //   questionIncrementer++;
+    // };
+
+    // getQuestion();
     // reset
+
     var titleScreen = document.getElementById("title-section");
     titleScreen.textContent = currentQuestion.title;
   
@@ -100,7 +116,6 @@ function startQuiz() {
     });
   }
 
-  // something isn't working here --
   function questionStart() {
     if (this.value !== questions[currentQuestionIndex].answer) {
       time -= 15;
@@ -172,6 +187,8 @@ function saveHighScore() {
   // works
   submitBtn.onclick = saveHighScore;
   
+
+
   //start quiz
   // works
   startBtn.onclick = startQuiz;
