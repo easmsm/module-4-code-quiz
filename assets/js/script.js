@@ -51,7 +51,7 @@ var highScoreScreen = document.querySelector("#highScore-section");
 var initialsEl = document.querySelector("#initials");
 var rightWrong = document.querySelector("#feedback");
 //changed from questionsEl
-var currentQuestion = document.querySelector("#question-title");
+var questionEl = document.querySelector("#question-title");
 var choicesEl = document.querySelector("#choices");
 
 //------------------quiz-------------------------------
@@ -60,10 +60,10 @@ var choicesEl = document.querySelector("#choices");
 function startQuiz() {
     titleScreen.setAttribute("class", "hide");
     quizScreen.setAttribute("class", "show");
-    currentQuestion.setAttribute("class", "show");
+    // currentQuestion.setAttribute("class", "show");
   
     // timer
-     // start timer
+     // start timer - this now works
      timerId = setInterval(startTime, 1000);
   
      timeEl.textContent = time;
@@ -72,8 +72,7 @@ function startQuiz() {
   }
 
   
-  // something isn't working here --
-
+  // this now works
   function startTime() {
     // time--;
     timeEl.textContent = time;
@@ -84,32 +83,15 @@ function startQuiz() {
 
   function getQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
-  
-    // var displayQuestions = function () {
-    //   initializeElements();
-    //   questionEl.textContent = quiz[questionIncrementer].question;
-    //   for (i = 0; i < quiz[questionIncrementer].choices.length; i++) {
-    //     var listChoiceEl = document.createElement("li");
-    //     listChoiceEl.textContent = quiz[questionIncrementer].choices[i];
-    //     listChoiceEl.className = "btn";
-    //     choicesEl.appendChild(listChoiceEl);
-    //   }
-    //   questionIncrementer++;
-    // };
-
-    // getQuestion();
-    // reset
-
-    var titleScreen = document.getElementById("title-section");
-    titleScreen.textContent = currentQuestion.title;
-  
+    var titleEl = document.getElementById("question-title");
+    titleEl.textContent = currentQuestion.title;
     choicesEl.innerHTML = "";
-  
-    currentQuestion.choices.forEach(function(choice, i) {
+      // Make this a for loop?
+      currentQuestion.choices.forEach(function(choice, i) {
+      // create new button for each choice
       var choiceNode = document.createElement("button");
       choiceNode.setAttribute("class", "choice");
       choiceNode.setAttribute("value", choice);
-  
       choiceNode.textContent = i + 1 + ". " + choice;
       choiceNode.onclick = questionStart;
       choicesEl.appendChild(choiceNode);
@@ -153,7 +135,7 @@ function startQuiz() {
   }
 
 // save high score
-// something isn't working here 
+// this works now
 function saveHighScore() {
     var initials = initialsEl.value.trim();
   
