@@ -1,12 +1,13 @@
-// variables 
+// -----------------------------variables------------------------------------------------- 
 
 //variables for timer/score keeping
-var score = 0; // Max value by decreasing each wrong answer 
-var highScore = 50; // highest possible score with the number of questions I'll be adding
-var checkTimes = 1 //  last question check
+var score = 0; 
+var highScore = 50; 
+var checkTimes = 1 
 var htmlTimeLeft = document.getElementById('timeLeft');
 var enterInitialsPrompt = document.createElement("enterInitialsPrompt"); 
 var enterInitialsHere = document.createElement("enterInitialsHere"); 
+var timeLeft = 60;
 
 //answer buttons
 var answerOption1Btn = document.getElementById('answeroption1'); 
@@ -15,11 +16,11 @@ var answerOption3Btn = document.getElementById('answeroption3');
 var answerOption4Btn = document.getElementById('answeroption4');
 
 //question and answer variables
-var quizStatus = true; // Know the status of the quiz. Quiz is not running = false , running = true
+var quizStatus = true; 
 var questionNumber = 0; 
 var answerNumber = 0; 
 var finalAnswerCheck = 0  
-var questionsEl = document.getElementById('questions'); 
+var questionsDisplay = document.getElementById('questions'); 
 
 //header variables
 var viewScoresBtn = document.getElementById('viewScores');
@@ -28,10 +29,11 @@ var viewScoresBtn = document.getElementById('viewScores');
 var startQuizBtn = document.getElementById('startQuiz');
 var submitScore = document.getElementById('submitScore'); 
 var mainDiv = document.getElementById('main'); 
-// Display counter 
+
 var answerRightWrong = document.getElementById('answerRightWrong'); 
 var questionHere = document.createElement("questionHere"); 
 var finalScore = document.createElement("finalScore"); 
+var gridContainer = document.getElementById("gridContainer");
 
 
 //------------------quiz-------------------------------
@@ -47,9 +49,7 @@ enterInitialsHere.style.display='none';
 
 //questions and answers
 
-// SOMETHING IS WRONG HERE, COME BACK AND FIX THE ORDER OF THE CORRECT ANSWERS
-// Object that holds correct answers with the print out of the question. The place of the correct answer in the array of answer options for each question is listed first (in order at the moment, hope to vary this in the future)
-var questions = { 
+var questionDisplay = { 
     correct: { 
         0 : "What number is used for the first position in an array",
         1 : "Which of the following is not a programming language?",
@@ -60,7 +60,7 @@ var questions = {
 };
 
 //All answers
-var answers = { 
+var answersDisplay = { 
     answers: { 
         0 : {
             0: "0",
@@ -95,7 +95,7 @@ var answers = {
 //answer variables that will be attached to each question
 
 //timer, stores score in local storage
-htmlTimeLeft.textContent = timeLeft;
+// htmlTimeLeft.textContent = timeLeft;
 
 viewScoresBtn.addEventListener("click", function() {
 
@@ -149,7 +149,7 @@ submitScore.addEventListener("click", function() {
         }  
        
         if (quizUserDetails == checkUserValue[0] && highScore == checkUserValue[1] ) {
-            localStorage.setItem(quizUserDetails, value); // Value is equal to 
+            localStorage.setItem(quizUserDetails, value); 
             window.alert(highScore + " " + "is the latest score from our return customer " + enterInitialsHere.value + ". Trying to prove something, now?")
         } else if (enterInitialsHere.value == "") {
             window.alert("We need your initials, love!");
@@ -163,9 +163,7 @@ submitScore.addEventListener("click", function() {
 //button displays
 
 answerOption1Btn.addEventListener("mouseover", function() {
-
     answerRightWrong.style.display='none';
-
 });
 
 answerOption2Btn.addEventListener("mouseover", function() {
@@ -181,11 +179,308 @@ answerOption4Btn.addEventListener("mouseover", function() {
 });
 
 submitScore.addEventListener("mouseover", function() {
-
     answerRightWrong.style.display='none';
 });
 
 startQuizBtn.addEventListener("click", function() {
 });
 
-//correct or incorrect answer
+
+//here is where the questions and answers will be populated, cycled through, and checked. I'm not sure how to consolidate this code without making all the answers the same place in the answer arrays, but I hope to address this in future versions of this game
+
+//using 0 true or 1 false from correct and incorrect answers, removing 1 point of time for each incorrect answer
+var timeInterval = setInterval(function() {
+        if (score === 1){
+        highScore -= 10;
+    }
+    score = 0;
+
+    
+    if(timeLeft >= 1 && finalAnswerCheck !== 1) {
+        // questionsDisplay.textContent = questionHere.correct[questionNumber];
+        
+        questionHere.style.display= ""; 
+        answerOption1Btn.style.display = "";
+        answerOption2Btn.style.display = "";
+        answerOption3Btn.style.display = "";
+        answerOption4Btn.style.display = "";
+
+        answerOption1Btn.textContent = answersDisplay.answers[answerNumber][0];
+        answerOption2Btn.textContent = answersDisplay.answers[answerNumber][1];
+        answerOption3Btn.textContent = answersDisplay.answers[answerNumber][2];
+        answerOption4Btn.textContent = answersDisplay.answers[answerNumber][3];
+       
+        // gridContainer.appendChild(questionsDisplay);
+        // gridContainer.appendChild(answerOption1Btn);
+        // gridContainer.appendChild(finalScore);
+        // timeLeft -= 1;
+        // htmlTimeLeft.textContent = timeLeft;
+        
+        //correct and incorrect answers to each question
+        answerOption1Btn.addEventListener("click", function() {
+
+            if (questionDisplay.textContent === "What number is used for the first position in an array" && answerOption1Btn.textContent === "0") {
+                console.log("Correct");
+                questionNumber = 2; 
+                answerNumber = 4;
+
+                answerRightWrong.style.display="";
+                answerRightWrong.textContent = "Yes!";
+                answerRightWrongGrid.appendChild(answerRightWrong);
+            } else {
+                switch(answerOption1Btn.textContent) {
+                    case "1":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+
+                        //set the score, question number and answer number (so the quiz isn't in the same order every time)
+                        score = 1;
+                        questionNumber = 1;
+                        answerNumber = 1;
+                        
+                    case "2":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+                        
+                        score = 1; 
+                        questionNumber = 3;
+                        answerNumber = 2;
+                    
+                    case "None of the Above":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+                        
+                        score = 1; 
+                        questionNumber = 4;
+                        answerNumber = 3;
+                    
+                        //game over, back to question and answer 0
+                        questionNumber = 0; 
+                        answerNumber = 0; 
+                        
+                        answerOption1Btn.style.display = 'none';
+                        answerOption2Btn.style.display = 'none';
+                        answerOption3Btn.style.display = 'none';
+                        answerOption4Btn.style.display = 'none';
+                        answerRightWrong.style.display='none'; 
+                        startQuizBtn.style.display = 'none'; 
+
+                        questionDisplay.textContent = "I think we're done here!";
+                        finalScore.style.display = ""; 
+                        enterInitialsPrompt.style.display = ""; 
+                        enterInitialsHere.style.display=""; 
+                        finalAnswerCheck = 1; 
+
+                        lastQuestionWrong();
+
+                        finalScore.textContent = "Your final score is: " + highScore;
+                        submitScore.style.display = "";
+                        submitScore.textContent = "Submit";                   
+                        
+                        //Exit
+                        clearInterval(timeInterval); 
+                }
+            }
+        });
+
+        answerOption2Btn.addEventListener("click", function() {
+
+            if (questionDisplay.textContent === "Which of the following is not a programming language?" && answerOption2Btn.textContent === "Jaba") {
+                answerRightWrong.style.display=""; 
+                answerRightWrong.textContent = "Correct!";
+                answerRightWrongGrid.appendChild(answerRightWrong);
+                
+                //Game Over
+                questionNumber = 0;
+                answerNumber = 0;
+
+                answer1BtnEl.style.display = 'none';
+                answer2BtnEl.style.display = 'none';
+                answer3BtnEl.style.display = 'none';
+                answer4BtnEl.style.display = 'none';
+                answerRightWrong.style.display='none'; 
+                startQuizBtn.style.display = 'none'; 
+
+                questionDisplay.textContent = "I think we're done here!";
+                finalScore.style.display = ""; 
+                enterInitialsPrompt.style.display = ""; 
+                enterInitialsHere.style.display=""; 
+                finalScore.textContent = "Your final score is: " + highScore; 
+                enterInitialsPrompt.textContent = "Enter initials: "
+                submitScore.style.display = "";
+                submitScore.textContent = "Submit"; 
+
+                //Exit
+                clearInterval(timeInterval);
+            } else {
+                switch(answer2BtnEl.textContent) {
+                    case "Java":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+                      
+                        score = 1; 
+                        questionNumber = 1; 
+                        answerNumber = 1;
+                        
+                    case "JavaScript":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+                     
+                        score = 1; 
+                        questionNumber = 2; 
+                        answerNumber = 4;
+                        console.log(score);
+                        
+                    case "Python":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+
+                        score = 1; 
+                        questionNumber = 3; 
+                        answerNumber = 2;      
+                }
+             }    
+        });
+
+        answerOption3Btn.addEventListener("click", function() {
+
+            if (questionDisplay.textContent === "Where do you link your JavaScript on your HTML file?" && answer3BtnEl.textContent === "At the bottom of the file, right before the close of the body tag") {
+                questionNumber = 1; 
+                answerNumber = 1;
+
+                answerRightWrong.style.display="";
+                answerRightWrong.textContent = "Yes!";
+                answerRightWrongGrid.appendChild(answerRightWrong);
+            }
+            else {
+                switch(answerOption3Btn.textContent) {
+                    case "In the header":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+                        score = 1; 
+                        questionNumber = 3;
+                        answerNumber = 2;
+                    
+                    case "In the footer":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+                        score = 1; 
+                        questionNumber = 3;
+                        answerNumber = 2;
+
+                    case "At the top of the file, after the html language is designated":
+                        score = 1; 
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+                        questionNumber = 0; 
+                        answerNumber = 0; 
+
+                        answerOption1Btn.style.display = 'none';
+                        answerOption2Btn.style.display = 'none';
+                        answerOption3Btn.style.display = 'none';
+                        answerOption4Btn.style.display = 'none';
+                        answerRightWrong.style.display='none'; 
+
+                        startQuizBtn.style.display = 'none'; 
+                        questionDisplay.textContent = "You have finished the quiz!";
+                        finalScore.style.display = ""; 
+                        enterInitialsPrompt.style.display = ""; 
+                        enterInitialsHere.style.display=""; 
+                        finalAnswerCheck = 1;
+
+                        lastQuestionWrong();
+
+                        finalScore.textContent = "Your final score is: " + highScore;
+                        enterInitialsPrompt.textContent = "Enter initials: "
+                        submitScore.style.display = "";
+                        submitScore.textContent = "Submit";  
+
+                        //Exit
+                        clearInterval(timeInterval);
+                }
+            }
+        });
+
+        answerOption4Btn.addEventListener("click", function() {
+
+            if (questionDisplay.textContent === "What are variables?" && answer4BtnEl.textContent === "Where information is stored") {
+                questionNumber = 3;
+                answerNumber = 2;
+                answerRightWrong.style.display=""; 
+                answerRightWrong.textContent = "Nice!"
+                answerRightWrongGrid.appendChild(answerRightWrong);
+            } else {
+                switch(answer4BtnEl.textContent) {
+                    case "Placeholders for numbers":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+
+                        score = 1; 
+                        questionNumber = 1; 
+                        answerNumber = 1;
+                    
+                    case "Where deleted information is stored":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+
+                        score = 1; 
+                        questionNumber = 2;
+                        answerNumber = 4;
+                   
+                    case "Text input spaces for end users":
+                        answerRightWrong.style.display="";
+                        answerRightWrong.textContent = "Nope!";
+
+                        score = 1; 
+                        questionNumber = 4; 
+                        answerNumber = 3;
+                 
+
+                        answerOption1Btn.style.display = 'none';
+                        answerOption2Btn.style.display = 'none';
+                        answerOption3Btn.style.display = 'none';
+                        answerOption4Btn.style.display = 'none';
+                        answerRightWrong.style.display='none'; 
+                        startQuizBtn.style.display = 'none'; 
+                        questionDisplay.textContent = "I think we're done here!";
+                        finalScore.style.display = ""; 
+                        enterInitialsPrompt.style.display = ""; 
+                        enterInitialsHere.style.display="";  
+                        finalAnswerCheck = 1; 
+
+                        lastQuestionWrong();
+
+                        finalScore.textContent = "Your final score is: " + highScore; 
+                        enterInitialsPrompt.textContent = "Enter initials: "
+                        submitScore.style.display = "";
+                        submitScore.textContent = "Submit";   
+                                        
+                        //Exit
+                        clearInterval(timeInterval);     
+                }     
+            }    
+        });
+    }
+    else if(timeLeft === 0){
+      questionNumber = 0; 
+      answerNumber = 0;
+
+      answerOption1Btn.style.display = 'none';
+      answerOption2Btn.style.display = 'none';
+      answerOption3Btn.style.display = 'none';
+      answerOption4Btn.style.display = 'none';
+      answerRightWrong.style.display='none';
+      questionDisplay.textContent = "Game Over!";
+      startQuizBtn.style.display = "";
+      clearInterval(timeInterval);
+    }
+  }, 1000)
+
+function lastQuestionWrong () {
+    if (finalAnswerCheck === 1 && checkTimes === 1) {
+    highScore -= 10;
+    checkTimes = 2;
+    return highScore
+}
+
+}
