@@ -24,6 +24,14 @@ h1{
 }
 
 .choice{
-    display: block;
+    display: block; 
     margin-top: 10px;
+}
+
+/* need something to break the buttons apart, that aren't actually buttons */
+
+
+.fakebutton{
+    display: inline-flex;
+    justify-content: space-between;
 }
