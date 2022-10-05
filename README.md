@@ -12,13 +12,18 @@ JavaScript, CSS, HTML
 
 In the future I would like to add additional styling to this project, as well as more questions and a different scoring system. 
 
-	![alt text](./assets/photos/Code%20Quiz%201.png)
-    ![alt text](./assets/photos/Code%20Quiz%202.png)
-    ![alt text](./assets/photos/Code%20Quiz%203.png)
+### Coding Quiz Front Page
+	![Coding Quiz Front Page](./assets/photos/Code%20Quiz%201.png)
+
+### Questions with Timer Score Keeper
+    ![Coding Quiz Questions with Timer](./assets/photos/Code%20Quiz%202.png)
+
+### High Score Page
+    ![Coding Quiz High Scores Page](./assets/photos/Code%20Quiz%203.png)
 
 ### GitHub Repo Link
 [GitHub Link](https://github.com/easmsm/module-4-code-quiz)
 
 
 ### Deployed Project Link
-[GitHub Pages Link](https://www.example.com)
+[GitHub Pages Link](https://easmsm.github.io/module-4-code-quiz/)
